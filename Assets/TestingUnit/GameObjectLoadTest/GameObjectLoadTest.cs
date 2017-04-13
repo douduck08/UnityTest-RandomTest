@@ -24,6 +24,10 @@ public class GameObjectLoadTest : MonoBehaviour {
         Debug.Log (string.Format ("SetIntoGrid: {0}", Time.realtimeSinceStartup - timer));
 
         timer = Time.realtimeSinceStartup;
+        MovingAll ();
+        Debug.Log (string.Format ("MovingAll: {0}", Time.realtimeSinceStartup - timer));
+
+        timer = Time.realtimeSinceStartup;
         SetAllActive (false);
         Debug.Log (string.Format ("SetAllActive(false): {0}", Time.realtimeSinceStartup - timer));
 
@@ -32,8 +36,16 @@ public class GameObjectLoadTest : MonoBehaviour {
         Debug.Log (string.Format ("SetAllActive(true): {0}", Time.realtimeSinceStartup - timer));
 
         timer = Time.realtimeSinceStartup;
-        MovingAll ();
-        Debug.Log (string.Format ("MovingAll: {0}", Time.realtimeSinceStartup - timer));
+        SetAllActive (false);
+        Debug.Log (string.Format ("SetAllActive(false): {0}", Time.realtimeSinceStartup - timer));
+
+        timer = Time.realtimeSinceStartup;
+        SetAllActive (true);
+        Debug.Log (string.Format ("SetAllActive(true): {0}", Time.realtimeSinceStartup - timer));
+
+        timer = Time.realtimeSinceStartup;
+        DestoryAll ();
+        Debug.Log (string.Format ("DestoryAll: {0}", Time.realtimeSinceStartup - timer));
     }
 
     private void InstantiatePrefab () {
@@ -55,7 +67,7 @@ public class GameObjectLoadTest : MonoBehaviour {
     private void SetAllActive (bool active) {
         for (int x = 0; x < TestAmountX; x++) {
             for (int y = 0; y < TestAmountY; y++) {
-                m_gameObjectList[x * TestAmountY + y].gameObject.SetActive(active);
+                m_gameObjectList[x * TestAmountY + y].SetActive(active);
             }
         }
     }
@@ -67,5 +79,14 @@ public class GameObjectLoadTest : MonoBehaviour {
                 m_gameObjectList[x * TestAmountY + y].transform.localPosition = newPos;
             }
         }
+    }
+
+    private void DestoryAll () {
+        for (int x = 0; x < TestAmountX; x++) {
+            for (int y = 0; y < TestAmountY; y++) {
+                GameObject.Destroy(m_gameObjectList[x * TestAmountY + y]);
+            }
+        }
+        m_gameObjectList.Clear ();
     }
 }
