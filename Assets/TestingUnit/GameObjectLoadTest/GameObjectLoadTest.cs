@@ -52,6 +52,14 @@ public class GameObjectLoadTest : MonoBehaviour {
         Debug.Log (string.Format ("SetAllActive(true): {0}", Time.realtimeSinceStartup - timer));
 
         timer = Time.realtimeSinceStartup;
+        SetAllActive (false);
+        Debug.Log (string.Format ("SetAllActive(false): {0}", Time.realtimeSinceStartup - timer));
+
+        timer = Time.realtimeSinceStartup;
+        SetAllActive (true);
+        Debug.Log (string.Format ("SetAllActive(true): {0}", Time.realtimeSinceStartup - timer));
+
+        timer = Time.realtimeSinceStartup;
         DoNothing ();
         Debug.Log (string.Format ("DoNothing: {0}", Time.realtimeSinceStartup - timer));
 
@@ -103,8 +111,10 @@ public class GameObjectLoadTest : MonoBehaviour {
     }
 
     private void DoNothing () {
+        GameObject go;
         for (int x = 0; x < TestAmountX; x++) {
             for (int y = 0; y < TestAmountY; y++) {
+                go = m_gameObjectList[x * TestAmountY + y];
             }
         }
     }
